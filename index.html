@@ -7,7 +7,7 @@
     <style>
         body {
             text-align: center;
-            background: radial-gradient(circle, #ff9a9e, #fad0c4);
+            background: black;
             font-family: 'Arial', sans-serif;
             overflow: hidden;
             position: relative;
@@ -15,92 +15,89 @@
         h1 {
             font-size: 4em;
             color: #fff;
-            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+            text-shadow: 3px 3px 10px rgba(255, 255, 255, 0.8);
             margin-top: 50px;
-            animation: pulse 2s infinite alternate;
         }
-        .message {
-            font-size: 2em;
-            color: #fff;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-            margin: 20px;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-        .confetti {
-            position: fixed;
-            top: -10px;
-            font-size: 2em;
-            animation: fall linear infinite;
-        }
-        @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-        .firework-container {
+        canvas {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100vw;
             height: 100vh;
-            overflow: hidden;
-        }
-        .firework {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background-color: gold;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: fireworkAnimation 1.5s ease-out;
-        }
-        @keyframes fireworkAnimation {
-            0% { transform: scale(1) translateY(0); opacity: 1; }
-            50% { transform: scale(3) translateY(-100px); opacity: 0.8; }
-            100% { transform: scale(6) translateY(-200px); opacity: 0; }
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="firework-container"></div>
     <h1>🎊 考試結束了！🎉</h1>
-    <p class="message" id="randomMessage"></p>
-    
+    <canvas id="fireworksCanvas"></canvas>
     <script>
-        const messages = [
-            "你超棒的！💪",
-            "放鬆一下吧！☕",
-            "來點好吃的犒賞自己吧！🍰",
-            "考完試就自由啦！🚀",
-            "不管結果如何，你已經很努力了！👏"
-        ];
-        document.getElementById("randomMessage").innerText = messages[Math.floor(Math.random() * messages.length)];
-
-        function createConfetti() {
-            const confetti = document.createElement("div");
-            confetti.classList.add("confetti");
-            confetti.innerText = "✨";
-            confetti.style.left = Math.random() * 100 + "vw";
-            confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
-            document.body.appendChild(confetti);
-            setTimeout(() => confetti.remove(), 3000);
-        }
-        setInterval(createConfetti, 200);
+        const canvas = document.getElementById("fireworksCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         
-        function createFirework() {
-            const fireworkContainer = document.querySelector('.firework-container');
-            const fireworkCount = Math.floor(Math.random() * 30) + 20;
-            for (let i = 0; i < fireworkCount; i++) {
-                const firework = document.createElement("div");
-                firework.classList.add("firework");
-                firework.style.left = Math.random() * 100 + "vw";
-                firework.style.top = Math.random() * 50 + 50 + "vh";
-                firework.style.animationDuration = (Math.random() * 1.5 + 1) + "s";
-                fireworkContainer.appendChild(firework);
-                setTimeout(() => firework.remove(), 1500);
+        class Firework {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.particles = [];
+                for (let i = 0; i < 50; i++) {
+                    this.particles.push(new Particle(this.x, this.y));
+                }
+            }
+            update() {
+                this.particles.forEach(particle => particle.update());
+            }
+            draw() {
+                this.particles.forEach(particle => particle.draw());
             }
         }
-        setInterval(createFirework, 1000);
+        
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.speed = Math.random() * 4 + 2;
+                this.angle = Math.random() * Math.PI * 2;
+                this.vx = Math.cos(this.angle) * this.speed;
+                this.vy = Math.sin(this.angle) * this.speed;
+                this.alpha = 1;
+                this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= 0.02;
+            }
+            draw() {
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        let fireworks = [];
+        function createFirework() {
+            fireworks.push(new Firework(Math.random() * canvas.width, Math.random() * canvas.height * 0.5));
+        }
+        setInterval(createFirework, 800);
+        
+        function animate() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            fireworks.forEach((firework, index) => {
+                firework.update();
+                firework.draw();
+                if (firework.particles[0].alpha <= 0) {
+                    fireworks.splice(index, 1);
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
     </script>
 </body>
 </html>
