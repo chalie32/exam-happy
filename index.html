@@ -73,75 +73,59 @@
     
     <canvas id="canvas"></canvas>
     <script>
-        const canvas = document.getElementById("canvas");
-        const ctx = canvas.getContext("2d");
+        window.oncontextmenu = function () { return false; } // Block menu
+
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        
-        class Firework {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.particles = [];
-                for (let i = 0; i < 50; i++) {
-                    this.particles.push(new Particle(this.x, this.y));
-                }
-            }
-            update() {
-                this.particles.forEach(particle => particle.update());
-            }
-            draw() {
-                this.particles.forEach(particle => particle.draw());
-            }
-        }
-        
-        class Particle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.speed = Math.random() * 4 + 2;
-                this.angle = Math.random() * Math.PI * 2;
-                this.vx = Math.cos(this.angle) * this.speed;
-                this.vy = Math.sin(this.angle) * this.speed;
-                this.alpha = 1;
-                this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.alpha -= 0.02;
-            }
-            draw() {
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-        
-        let fireworks = [];
+
         function createFirework() {
-            fireworks.push(new Firework(Math.random() * canvas.width, Math.random() * canvas.height * 0.5));
+            firework = new Firework();
+            firework.x = firework.sx = canvas.width / 2;
+            firework.y = firework.sy = canvas.height;
+            firework.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+            firework.tx = Math.random() * canvas.width;
+            firework.ty = Math.random() * (canvas.height / 2);
+            fireworks.push(firework);
         }
-        setInterval(createFirework, 800);
-        
-        function animate() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+
+        function updateFireworks() {
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             fireworks.forEach((firework, index) => {
                 firework.update();
                 firework.draw();
-                if (firework.particles[0].alpha <= 0) {
+                if (firework.del) {
                     fireworks.splice(index, 1);
                 }
             });
-            requestAnimationFrame(animate);
+            requestAnimationFrame(updateFireworks);
         }
-        animate();
+
+        var fireworks = [];
+        setInterval(createFirework, 1000);
+        updateFireworks();
+
+        const fortunes = [
+            "🔮 你即將迎來一場意想不到的驚喜！",
+            "💰 你的努力將轉化成美食與快樂！",
+            "🎉 恭喜！未來一週你會超級幸運！",
+            "🍜 你可能會吃到一頓超級好吃的飯！",
+            "🎲 你即將遇到一個超級好玩的新活動！",
+            "💌 有人可能會偷偷欣賞你的努力！",
+            "✨ 你的好運值正在飆升，快許個願！"
+        ];
+        
+        function drawFortune() {
+            const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+            document.getElementById("fortuneResult").innerText = fortune;
+        }
     </script>
 </body>
 </html>
+
 
 
 
