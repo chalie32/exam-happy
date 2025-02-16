@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎆 考試結束狂歡！🚀</title>
+    <title>🎆 考後人生導航 🚀</title>
     <style>
         body {
             text-align: center;
@@ -14,10 +14,10 @@
             color: #444;
         }
         h1 {
-            font-size: 4em;
+            font-size: 3.5em;
             color: #ff4f79;
             text-shadow: 2px 2px 5px rgba(255, 79, 121, 0.5);
-            margin-top: 50px;
+            margin-top: 30px;
             animation: pulse 1.5s infinite alternate;
         }
         @keyframes pulse {
@@ -27,7 +27,7 @@
         .button {
             font-size: 1.5em;
             padding: 15px 30px;
-            margin: 20px;
+            margin: 15px;
             background-color: #ff6f61;
             border: none;
             cursor: pointer;
@@ -40,7 +40,7 @@
             background-color: #ff4757;
             box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
         }
-        #moodResult {
+        #resultBox {
             font-size: 2em;
             margin-top: 20px;
             font-weight: bold;
@@ -52,41 +52,35 @@
             display: inline-block;
             max-width: 80%;
         }
-        .emoji {
-            font-size: 3em;
-            display: block;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
-    <h1>🎊 考試結束了！狂歡吧！🎉</h1>
-    <button class="button" onclick="getMoodTest()">😂 你的考後心情是？</button>
-    <p id="moodResult"></p>
-    <span class="emoji" id="emojiResult"></span>
+    <h1>🎊 考後人生導航 🚀</h1>
+    <button class="button" onclick="getNextMove()">💡 接下來該做什麼？</button>
+    <p id="resultBox"></p>
     
     <script>
-        const moods = [
-            { text: "🚀「我已經自由了！！！我要放飛自我！」", emoji: "🎈" },
-            { text: "🤡「這題我當時會寫，現在不會了」🤔", emoji: "🤡" },
-            { text: "🧠「現在可以刪除考試內容了嗎？」🚮", emoji: "🧠" },
-            { text: "🍔「我需要美食療癒，速速來個炸雞🍗！」", emoji: "🍔" },
-            { text: "🎶「音樂開下去！考試的壓力消失！」🎵", emoji: "🎵" },
-            { text: "🏖️「放假模式開啟，先來個三天不見人！」", emoji: "🏝️" },
-            { text: "🛌「我現在唯一想做的事情：躺平」😴", emoji: "😴" },
-            { text: "🎮「終於能瘋狂打遊戲！電腦開機！」🕹️", emoji: "🎮" },
-            { text: "📺「一口氣追完這季的動畫！」🍿", emoji: "📺" },
-            { text: "🌈「不管考得怎樣，世界依然美好！」🌸", emoji: "🌸" }
+        const nextMoves = [
+            "🍕 立刻訂個披薩，好好犒賞自己！", 
+            "🎮 開啟遊戲模式，來場遊戲放鬆一下！", 
+            "🏖️ 出去走走，找個舒服的地方放空！", 
+            "🍰 買個甜點，讓快樂從嘴裡開始！", 
+            "🎥 看部電影，沉浸在另一個世界！", 
+            "📺 追個劇，忘記所有考試的壓力！", 
+            "🛌 躺平一天，補個最舒服的覺！", 
+            "🎵 聽點快樂音樂，讓壓力全消失！", 
+            "🚗 來場小旅行，換個環境放鬆心情！", 
+            "🛍️ 逛街買東西，給自己一個小獎勵！"
         ];
         
-        function getMoodTest() {
-            const mood = moods[Math.floor(Math.random() * moods.length)];
-            document.getElementById("moodResult").innerText = mood.text;
-            document.getElementById("emojiResult").innerText = mood.emoji;
+        function getNextMove() {
+            const result = nextMoves[Math.floor(Math.random() * nextMoves.length)];
+            document.getElementById("resultBox").innerText = result;
         }
     </script>
 </body>
 </html>
+
 
 
 
