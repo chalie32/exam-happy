@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考試結束快樂！🎉</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #ffe4e1;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 3em;
+            color: #ff6b81;
+            margin-top: 50px;
+        }
+        .message {
+            font-size: 1.5em;
+            color: #333;
+            margin: 20px;
+        }
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>考試結束了！🎉</h1>
+    <p class="message" id="randomMessage"></p>
+    <script>
+        const messages = [
+            "你超棒的！💪",
+            "放鬆一下吧！☕",
+            "來點好吃的犒賞自己吧！🍰",
+            "考完試就自由啦！🚀",
+            "不管結果如何，你已經很努力了！👏"
+        ];
+        document.getElementById("randomMessage").innerText = messages[Math.floor(Math.random() * messages.length)];
+
+        function createConfetti() {
+            const confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+            confetti.innerText = "✨";
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 3000);
+        }
+        setInterval(createConfetti, 300);
+    </script>
+</body>
+</html>
