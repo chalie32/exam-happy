@@ -10,6 +10,7 @@
             background-color: #ffe4e1;
             font-family: 'Arial', sans-serif;
             overflow: hidden;
+            position: relative;
         }
         h1 {
             font-size: 3em;
@@ -33,11 +34,27 @@
             0% { transform: translateY(-100px) rotate(0); }
             100% { transform: translateY(100vh) rotate(360deg); }
         }
+        
+        /* Fireworks Animation */
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: gold;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: explode 1.5s ease-out infinite;
+        }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(10); opacity: 0; }
+        }
     </style>
 </head>
 <body>
     <h1>考試結束了！🎉</h1>
     <p class="message" id="randomMessage"></p>
+    
     <script>
         const messages = [
             "你超棒的！💪",
@@ -58,6 +75,18 @@
             setTimeout(() => confetti.remove(), 3000);
         }
         setInterval(createConfetti, 300);
+        
+        function createFirework() {
+            const firework = document.createElement("div");
+            firework.classList.add("firework");
+            firework.style.left = Math.random() * 100 + "vw";
+            firework.style.top = Math.random() * 100 + "vh";
+            firework.style.animationDuration = (Math.random() * 1.5 + 1) + "s";
+            document.body.appendChild(firework);
+            setTimeout(() => firework.remove(), 1500);
+        }
+        setInterval(createFirework, 500);
     </script>
 </body>
 </html>
+
