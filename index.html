@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎆 考後人生導航 🚀</title>
+    <title>🎆 考試結束狂歡！🚀</title>
     <style>
         body {
             text-align: center;
-            background: linear-gradient(to right, #ffb6c1, #ffd5e5, #ffe4e1);
+            background: black;
             font-family: 'Arial', sans-serif;
             overflow: hidden;
             position: relative;
-            color: #444;
+            color: white;
         }
         h1 {
-            font-size: 3.5em;
+            font-size: 4em;
             color: #ff4f79;
             text-shadow: 2px 2px 5px rgba(255, 79, 121, 0.5);
-            margin-top: 30px;
+            margin-top: 50px;
             animation: pulse 1.5s infinite alternate;
         }
         @keyframes pulse {
@@ -27,7 +27,7 @@
         .button {
             font-size: 1.5em;
             padding: 15px 30px;
-            margin: 15px;
+            margin: 20px;
             background-color: #ff6f61;
             border: none;
             cursor: pointer;
@@ -40,7 +40,7 @@
             background-color: #ff4757;
             box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
         }
-        #resultBox {
+        #moodResult, #fortuneResult {
             font-size: 2em;
             margin-top: 20px;
             font-weight: bold;
@@ -52,34 +52,97 @@
             display: inline-block;
             max-width: 80%;
         }
+        canvas {
+            position:absolute;
+            display:block;
+            top:0;
+            left:0;
+            width:100vw;
+            height:100vh;
+            z-index:-1;
+        }
     </style>
 </head>
 <body>
-    <h1>🎊 考後人生導航 🚀</h1>
-    <button class="button" onclick="getNextMove()">💡 接下來該做什麼？</button>
-    <p id="resultBox"></p>
+    <h1>🎊 考試結束了！狂歡吧！🎉</h1>
+    <button class="button" onclick="getMoodTest()">😂 你的考後心情是？</button>
+    <p id="moodResult"></p>
     
+    <button class="button" onclick="drawFortune()">🔮 你的考後運勢！</button>
+    <p id="fortuneResult"></p>
+    
+    <canvas id="canvas"></canvas>
     <script>
-        const nextMoves = [
-            "🍕 立刻訂個披薩，好好犒賞自己！", 
-            "🎮 開啟遊戲模式，來場遊戲放鬆一下！", 
-            "🏖️ 出去走走，找個舒服的地方放空！", 
-            "🍰 買個甜點，讓快樂從嘴裡開始！", 
-            "🎥 看部電影，沉浸在另一個世界！", 
-            "📺 追個劇，忘記所有考試的壓力！", 
-            "🛌 躺平一天，補個最舒服的覺！", 
-            "🎵 聽點快樂音樂，讓壓力全消失！", 
-            "🚗 來場小旅行，換個環境放鬆心情！", 
-            "🛍️ 逛街買東西，給自己一個小獎勵！"
-        ];
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         
-        function getNextMove() {
-            const result = nextMoves[Math.floor(Math.random() * nextMoves.length)];
-            document.getElementById("resultBox").innerText = result;
+        class Firework {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.particles = [];
+                for (let i = 0; i < 50; i++) {
+                    this.particles.push(new Particle(this.x, this.y));
+                }
+            }
+            update() {
+                this.particles.forEach(particle => particle.update());
+            }
+            draw() {
+                this.particles.forEach(particle => particle.draw());
+            }
         }
+        
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.speed = Math.random() * 4 + 2;
+                this.angle = Math.random() * Math.PI * 2;
+                this.vx = Math.cos(this.angle) * this.speed;
+                this.vy = Math.sin(this.angle) * this.speed;
+                this.alpha = 1;
+                this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= 0.02;
+            }
+            draw() {
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        let fireworks = [];
+        function createFirework() {
+            fireworks.push(new Firework(Math.random() * canvas.width, Math.random() * canvas.height * 0.5));
+        }
+        setInterval(createFirework, 800);
+        
+        function animate() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            fireworks.forEach((firework, index) => {
+                firework.update();
+                firework.draw();
+                if (firework.particles[0].alpha <= 0) {
+                    fireworks.splice(index, 1);
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
     </script>
 </body>
 </html>
+
 
 
 
