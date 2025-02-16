@@ -7,15 +7,16 @@
     <style>
         body {
             text-align: center;
-            background: black;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4, #fad0c4, #ffdde1);
             font-family: 'Arial', sans-serif;
             overflow: hidden;
             position: relative;
-            color: white;
+            color: #444;
         }
         h1 {
             font-size: 4em;
-            text-shadow: 3px 3px 10px rgba(255, 255, 255, 0.8);
+            color: #ff4f79;
+            text-shadow: 3px 3px 10px rgba(255, 79, 121, 0.8);
             margin-top: 50px;
             animation: pulse 1.5s infinite alternate;
         }
@@ -27,57 +28,49 @@
             font-size: 1.5em;
             padding: 15px 30px;
             margin: 20px;
-            background-color: #ffcc00;
+            background-color: #ff6f61;
             border: none;
             cursor: pointer;
-            border-radius: 10px;
-            animation: glow 1.5s infinite alternate;
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 111, 97, 0.4);
+            transition: 0.3s;
         }
-        @keyframes glow {
-            0% { box-shadow: 0 0 10px #ffcc00; }
-            100% { box-shadow: 0 0 20px #ffcc00; }
+        .button:hover {
+            background-color: #ff4757;
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.6);
         }
-        #result {
+        #moodResult {
             font-size: 2em;
             margin-top: 20px;
             font-weight: bold;
-            color: #ffcc00;
-        }
-        .prize {
-            font-size: 2em;
-            margin-top: 20px;
-            color: #0ff;
-            text-shadow: 0 0 10px #0ff;
+            color: #ff4757;
+            text-shadow: 0 0 10px rgba(255, 71, 87, 0.8);
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            display: inline-block;
+            max-width: 80%;
         }
     </style>
 </head>
 <body>
     <h1>🎊 考試結束了！狂歡吧！🎉</h1>
-    <button class="button" onclick="spinWheel()">🎡 轉動轉盤看看你的獎勵！</button>
-    <p id="result"></p>
     <button class="button" onclick="getMoodTest()">😂 你的考後心情是？</button>
-    <p class="prize" id="moodResult"></p>
+    <p id="moodResult"></p>
     
     <script>
-        const prizes = [
-            "🍰 免費吃蛋糕券（虛擬）", 
-            "🎮 無限遊戲時間 24 小時（自己決定）", 
-            "🍕 點個披薩犒賞自己", 
-            "💰 幻想中突然變有錢", 
-            "🎟️ 偶像演唱會門票（假的，別太認真）"
-        ];
-        
-        function spinWheel() {
-            const result = prizes[Math.floor(Math.random() * prizes.length)];
-            document.getElementById("result").innerText = "🎁 你的獎勵是：" + result;
-        }
-        
         const moods = [
-            "🚀「我已經自由了！！！」", 
-            "🤡「這題我當時會寫，現在不會了」", 
-            "🧠「現在可以刪除考試內容了嗎？」", 
-            "🍔「我需要美食療癒」", 
-            "🎶「聽歌讓我緩過來」"
+            "🚀「我已經自由了！！！我要放飛自我！」", 
+            "🤡「這題我當時會寫，現在不會了」🤔", 
+            "🧠「現在可以刪除考試內容了嗎？」🚮", 
+            "🍔「我需要美食療癒，速速來個炸雞🍗！」", 
+            "🎶「音樂開下去！考試的壓力消失！」🎵", 
+            "🏖️「放假模式開啟，先來個三天不見人！」", 
+            "🛌「我現在唯一想做的事情：躺平」😴", 
+            "🎮「終於能瘋狂打遊戲！電腦開機！」🕹️", 
+            "📺「一口氣追完這季的動畫！」🍿", 
+            "🌈「不管考得怎樣，世界依然美好！」🌸"
         ];
         
         function getMoodTest() {
@@ -87,6 +80,7 @@
     </script>
 </body>
 </html>
+
 
 
 
