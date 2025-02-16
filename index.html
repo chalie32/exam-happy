@@ -7,7 +7,7 @@
     <style>
         body {
             text-align: center;
-            background: linear-gradient(to right, #ff9a9e, #fad0c4, #fad0c4, #ffdde1);
+            background: linear-gradient(to right, #ffb6c1, #ffd5e5, #ffe4e1);
             font-family: 'Arial', sans-serif;
             overflow: hidden;
             position: relative;
@@ -16,13 +16,13 @@
         h1 {
             font-size: 4em;
             color: #ff4f79;
-            text-shadow: 3px 3px 10px rgba(255, 79, 121, 0.8);
+            text-shadow: 2px 2px 5px rgba(255, 79, 121, 0.5);
             margin-top: 50px;
             animation: pulse 1.5s infinite alternate;
         }
         @keyframes pulse {
             0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+            100% { transform: scale(1.05); }
         }
         .button {
             font-size: 1.5em;
@@ -33,24 +33,29 @@
             cursor: pointer;
             border-radius: 15px;
             color: white;
-            box-shadow: 0 5px 15px rgba(255, 111, 97, 0.4);
+            box-shadow: 0 3px 10px rgba(255, 111, 97, 0.3);
             transition: 0.3s;
         }
         .button:hover {
             background-color: #ff4757;
-            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.6);
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
         }
         #moodResult {
             font-size: 2em;
             margin-top: 20px;
             font-weight: bold;
             color: #ff4757;
-            text-shadow: 0 0 10px rgba(255, 71, 87, 0.8);
+            text-shadow: 0 0 5px rgba(255, 71, 87, 0.5);
             padding: 20px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 15px;
             display: inline-block;
             max-width: 80%;
+        }
+        .emoji {
+            font-size: 3em;
+            display: block;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -58,28 +63,31 @@
     <h1>🎊 考試結束了！狂歡吧！🎉</h1>
     <button class="button" onclick="getMoodTest()">😂 你的考後心情是？</button>
     <p id="moodResult"></p>
+    <span class="emoji" id="emojiResult"></span>
     
     <script>
         const moods = [
-            "🚀「我已經自由了！！！我要放飛自我！」", 
-            "🤡「這題我當時會寫，現在不會了」🤔", 
-            "🧠「現在可以刪除考試內容了嗎？」🚮", 
-            "🍔「我需要美食療癒，速速來個炸雞🍗！」", 
-            "🎶「音樂開下去！考試的壓力消失！」🎵", 
-            "🏖️「放假模式開啟，先來個三天不見人！」", 
-            "🛌「我現在唯一想做的事情：躺平」😴", 
-            "🎮「終於能瘋狂打遊戲！電腦開機！」🕹️", 
-            "📺「一口氣追完這季的動畫！」🍿", 
-            "🌈「不管考得怎樣，世界依然美好！」🌸"
+            { text: "🚀「我已經自由了！！！我要放飛自我！」", emoji: "🎈" },
+            { text: "🤡「這題我當時會寫，現在不會了」🤔", emoji: "🤡" },
+            { text: "🧠「現在可以刪除考試內容了嗎？」🚮", emoji: "🧠" },
+            { text: "🍔「我需要美食療癒，速速來個炸雞🍗！」", emoji: "🍔" },
+            { text: "🎶「音樂開下去！考試的壓力消失！」🎵", emoji: "🎵" },
+            { text: "🏖️「放假模式開啟，先來個三天不見人！」", emoji: "🏝️" },
+            { text: "🛌「我現在唯一想做的事情：躺平」😴", emoji: "😴" },
+            { text: "🎮「終於能瘋狂打遊戲！電腦開機！」🕹️", emoji: "🎮" },
+            { text: "📺「一口氣追完這季的動畫！」🍿", emoji: "📺" },
+            { text: "🌈「不管考得怎樣，世界依然美好！」🌸", emoji: "🌸" }
         ];
         
         function getMoodTest() {
             const mood = moods[Math.floor(Math.random() * moods.length)];
-            document.getElementById("moodResult").innerText = mood;
+            document.getElementById("moodResult").innerText = mood.text;
+            document.getElementById("emojiResult").innerText = mood.emoji;
         }
     </script>
 </body>
 </html>
+
 
 
 
