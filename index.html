@@ -3,56 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>考試結束快樂！🎉</title>
+    <title>🎉 考試結束快樂！🚀</title>
     <style>
         body {
             text-align: center;
-            background-color: #ffe4e1;
+            background: radial-gradient(circle, #ff9a9e, #fad0c4);
             font-family: 'Arial', sans-serif;
             overflow: hidden;
             position: relative;
         }
         h1 {
-            font-size: 3em;
-            color: #ff6b81;
+            font-size: 4em;
+            color: #fff;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
             margin-top: 50px;
+            animation: pulse 2s infinite alternate;
         }
         .message {
-            font-size: 1.5em;
-            color: #333;
+            font-size: 2em;
+            color: #fff;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
             margin: 20px;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
         .confetti {
             position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            top: -10px;
             font-size: 2em;
-            animation: fall 3s linear infinite;
+            animation: fall linear infinite;
         }
         @keyframes fall {
-            0% { transform: translateY(-100px) rotate(0); }
-            100% { transform: translateY(100vh) rotate(360deg); }
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
-        
-        /* Fireworks Animation */
         .firework {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 15px;
+            height: 15px;
             background-color: gold;
             border-radius: 50%;
-            opacity: 0.8;
             animation: explode 1.5s ease-out infinite;
         }
         @keyframes explode {
             0% { transform: scale(1); opacity: 1; }
             100% { transform: scale(10); opacity: 0; }
         }
+        .glow {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0) 70%);
+            pointer-events: none;
+            animation: glowEffect 3s infinite alternate;
+        }
+        @keyframes glowEffect {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; }
+        }
     </style>
 </head>
 <body>
-    <h1>考試結束了！🎉</h1>
+    <div class="glow"></div>
+    <h1>🎊 考試結束了！🎉</h1>
     <p class="message" id="randomMessage"></p>
     
     <script>
@@ -70,11 +85,11 @@
             confetti.classList.add("confetti");
             confetti.innerText = "✨";
             confetti.style.left = Math.random() * 100 + "vw";
-            confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
             document.body.appendChild(confetti);
             setTimeout(() => confetti.remove(), 3000);
         }
-        setInterval(createConfetti, 300);
+        setInterval(createConfetti, 200);
         
         function createFirework() {
             const firework = document.createElement("div");
@@ -85,8 +100,9 @@
             document.body.appendChild(firework);
             setTimeout(() => firework.remove(), 1500);
         }
-        setInterval(createFirework, 500);
+        setInterval(createFirework, 300);
     </script>
 </body>
 </html>
+
 
